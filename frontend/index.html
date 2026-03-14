@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECS 服务验证</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 100px auto; text-align: center; }
+        h1 { color: #2c3e50; }
+        .info { background: #ecf0f1; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        button { background: #3498db; color: white; border: none; padding: 12px 24px;
+                 border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #2980b9; }
+        #apiResult { margin-top: 20px; padding: 15px; background: #e8f5e9;
+                     border-radius: 4px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>✅ ECS 服务运行正常</h1>
+    <div class="info">
+        <p><strong>访问时间:</strong> <span id="time"></span></p>
+        <p><strong>状态:</strong> 域名解析成功</p>
+    </div>
+
+    <button onclick="testAPI()">测试后端 API</button>
+    <div id="apiResult"></div>
+
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '请求中...';
+
+            try {
+                const response = await fetch('/api/test');
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <strong>✅ API 响应成功</strong><br>
+                    消息: ${data.message}<br>
+                    时间: ${data.data.timestamp}<br>
+                    服务器: ${data.data.server}
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<strong>❌ API 请求失败</strong><br>${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
