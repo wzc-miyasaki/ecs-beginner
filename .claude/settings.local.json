@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv venv:*)",
+      "Bash(uv pip:*)",
+      "Bash(python:*)",
+      "Bash(PORT=8000 python:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(curl:*)",
+      "Bash(PORT=8000 .venv/bin/python:*)",
+      "Bash(brew install:*)",
+      "Bash(nginx:*)",
+      "Bash(lsof:*)",
+      "Bash(.venv/bin/uv pip:*)",
+      "Bash(pkill:*)"
+    ]
+  }
+}
